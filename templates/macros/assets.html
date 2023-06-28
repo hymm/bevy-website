@@ -86,6 +86,7 @@
 
 {% macro assets_menu(root, prefix) %}
 <ul class="tree-menu">
+    <input id="asset-filter" type="text" placeholder="filter: whole words only" onkeyup="doSearch(value)" />
     {% for s in root.subsections %}
     {{ self::assets_menu_row(prefix=prefix, section_path=s)}}
     {% endfor %}

@@ -62,4 +62,30 @@
         {% endfor %}
         {% endfor %}
     </div>
+    <script type="module">    
+        import { search, default as init } from '/assets/search/tinysearch_engine.js';
+        window.search = search;
+    
+        async function run() {
+            await init('/assets/search/tinysearch_engine_bg.wasm');
+        }
+    
+        run();
+    </script>
+    <script>
+        function doSearch(value) {
+            let results = search(value, 1000).map(([_, url]) => url);
+            for (el of document.querySelectorAll(".asset-card")) {
+                if (results.length === 0) {
+                    el.parentElement.style.display = '';
+                    continue;
+                } 
+                if (results.includes(el.parentElement.id)) {
+                    el.parentElement.style.display = '';
+                } else {
+                    el.parentElement.style.display = 'none';
+                }
+            }
+        }
+    </script>
 {% endblock %}
